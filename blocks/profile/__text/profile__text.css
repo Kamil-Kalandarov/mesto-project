@@ -1,0 +1,18 @@
+.profile__text {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+}
+@media screen and (max-width: 1023px) {
+  .profile__text {
+  padding: 22.25px 0 36px 0;
+  align-items: center;
+  }
+}
+@media screen and (max-width: 767px) {
+  .profile__text {
+    padding-top: 22.25px;
+    padding-bottom: 36px;
+  }
+}

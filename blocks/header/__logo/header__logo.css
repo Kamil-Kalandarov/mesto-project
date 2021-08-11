@@ -1,0 +1,13 @@
+.header__logo {
+  transition: opacity 0.4s linear;
+  cursor: pointer;
+}
+.header__logo:hover{
+  opacity: 50%;
+}
+@media screen and (max-width: 767px) {
+  .header__logo {
+    padding-left: 27px;
+    max-width: 103.74px;
+  }
+}  

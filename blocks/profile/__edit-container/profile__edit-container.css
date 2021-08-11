@@ -1,0 +1,10 @@
+.profile__edit-container {
+  display: flex;
+  align-items: center;
+}
+@media screen and (max-width: 767px) {
+  .profile__edit-container {
+    padding-left: 28px;
+    padding-top: 5px;
+  }
+}

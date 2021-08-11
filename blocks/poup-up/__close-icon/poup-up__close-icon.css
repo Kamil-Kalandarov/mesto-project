@@ -1,0 +1,27 @@
+.poup-up__close-icon {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 32px;
+  height: 32px;
+  background-image: url('../../../images/close-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.4s linear;
+}
+.poup-up__close-icon:hover {
+  opacity: 60%;
+}
+@media screen and (max-width: 767px) {
+  .poup-up__close-icon {
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    top: -35px;
+    right: 0;
+  }
+}

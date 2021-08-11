@@ -1,0 +1,5 @@
+.cards__pic {
+  object-fit: cover;
+  height: 282px;
+  cursor: pointer;
+}
