@@ -17,16 +17,16 @@
   <main class="content">
     <section class="profile page__section">
       <div class="profile__info">
-        <img class="profile__avatar" src="./images/face.jpg" alt="Портрет Жака-Ив Кусто">
+        <img class="profile__avatar" src="./images/face.jpg" alt="Аватар пользователя">
         <div class="profile__text">
           <div class="profile__edit-container">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <button class="profile__edit" aria-label="edit" type="button"></button>
+            <button class="profile__edit" aria-label="редактировать профиль" type="button"></button>
           </div>
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
       </div>
-      <button class="profile__add" aria-label="add" type="button"></button>
+      <button class="profile__add" aria-label="добавить карточку" type="button"></button>
     </section>
     <section class="elements page__section">
       <ul class="cards">
@@ -36,33 +36,33 @@
   <footer class="footer page__section">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
-  <div class="poup-up poup-up__edit">
-    <div class="poup-up__container poup-up__container-edit">
-      <h2 class="poup-up__title">Редактировать профиль</h2>
-      <form class="poup-up__input-container poup-up__input-container_type_edit" name="poup-up">
-        <input class="poup-up__item poup-up__item_type_name" type="text" name="name"  placeholder="Имя">
-        <input class="poup-up__item poup-up__item_type_about" type="text" name="about" placeholder="Деятельность">
-        <button class="poup-up__button" type="submit">Сохранить</button>
+  <div class="popup popup_type_edit">
+    <div class="popup__container popup__container_type_edit">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form class="popup__input-container popup__input-container_type_edit" name="popup__input-container_type_edit">
+        <input class="popup__item popup__item_type_name" type="text" name="popup__item_type_name"  placeholder="Имя" required>
+        <input class="popup__item popup__item_type_about" type="text" name="popup__item_type_about" placeholder="Деятельность" required>
+        <button class="popup__button" type="submit">Сохранить</button>
       </form>
-      <button class="poup-up__close-icon" aria-label="close" type="button"></button>
+      <button class="popup__close-icon" aria-label="закрыть модальное окно" type="button"></button>
     </div>
   </div>
-  <div class="poup-up poup-up__add">
-    <div class="poup-up__container poup-up__container-add">
-      <h2 class="poup-up__title">Новое место</h2>
-      <form class="poup-up__input-container poup-up__input-container_type_add" name="poup-up">
-        <input class="poup-up__item poup-up__item_type_place" type="text" name="name"  placeholder="Новое место">
-        <input class="poup-up__item poup-up__item_type_link" type="text" name="about" placeholder="Ссылка на картинку">
-        <button class="poup-up__button" type="submit">Сохранить</button>
+  <div class="popup popup_type_add">
+    <div class="popup__container popup__container_type_add">
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__input-container popup__input-container_type_add" name="popup__input-container_type_add">
+        <input class="popup__item popup__item_type_place" type="text" name="popup__item_type_place"  placeholder="Новое место" required>
+        <input class="popup__item popup__item_type_link" type="url" name="popup__item_type_link" placeholder="Ссылка на картинку" required>
+        <button class="popup__button" type="submit">Сохранить</button>
       </form>
-      <button class="poup-up__close-icon" aria-label="close" type="button"></button>
+      <button class="popup__close-icon" aria-label="закрыть модальное окно" type="button"></button>
     </div>
   </div>
-  <div class="poup-up poup-up__zoom">
-    <figure class="poup-up__figure">
-      <button class="poup-up__close-icon" aria-label="close" type="button"></button>
-      <img class="poup-up__image" src="#" alt="">
-      <figcaption class="poup-up__caption"></figcaption>
+  <div class="popup popup_type_zoom">
+    <figure class="popup__figure">
+      <button class="popup__close-icon" aria-label="закрыть модальное окно" type="button"></button>
+      <img class="popup__image" src="#" alt="">
+      <figcaption class="popup__caption"></figcaption>
     </figure>
   </div>
 <template id="cards">
@@ -75,6 +75,7 @@
     </div>
   </li>
 </template>
-<script src="./script.js"></script>
+<script src="./JS/initial-cards.js"></script>
+<script src="./JS/script.js"></script>
 </body>
 </html>

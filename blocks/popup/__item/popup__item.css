@@ -1,4 +1,4 @@
-.poup-up__item {
+.popup__item {
   width: 358px;
   display: block;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
@@ -10,11 +10,11 @@
   margin: 30px 0 13px 0;
   outline: none;
 }
-.poup-up__item:first-child {
+.popup__item:first-child {
   margin-top: 0;
 }
 @media screen and (max-width: 767px) {
-  .poup-up__item {
+  .popup__item {
     width: 238px;
   }
 }

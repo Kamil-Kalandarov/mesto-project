@@ -1,4 +1,4 @@
-.poup-up__button {
+.popup__button {
   width: 358px;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   color: #fff;
@@ -15,11 +15,11 @@
   transition: opacity 0.4s linear;
   cursor: pointer;
 }
-.poup-up__button:hover {
+.popup__button:hover {
   opacity: 80%;
 }
 @media screen and (max-width: 767px) {
-  .poup-up__button {
+  .popup__button {
     width: 238px;
     height: 46px;
     font-size: 14px;
