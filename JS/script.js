@@ -19,7 +19,7 @@ const popupZoom = document.querySelector('.popup_type_zoom');
 const popupCaption = popupZoom.querySelector('.popup__caption');
 const popupPicture = popupZoom.querySelector('.popup__image');
 const closeZoom = popupZoom.querySelector('.popup__close-icon');
-const popups = document.querySelectorAll('.popup_type_edit, .popup_type_add, .popup_type_zoom');
+const popups = document.querySelectorAll('.popup');
 
 /*Открытие модального окна и перердача значений полям ввода из заголоавков профиля*/
 profileEditButton.addEventListener('click', () => {
@@ -57,6 +57,7 @@ formAdd.addEventListener('submit', (evt) => {
     link: inputLink.value
   }, cardsContainer);
     formAdd.reset();
+    closePopup(popupAdd);
  });
 /*Закрытие модального окна для добавления карточек*/
  closeAdd.addEventListener('click', () => {
