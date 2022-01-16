@@ -2,7 +2,6 @@
 <html lang="ru">
 
 <head>
-  <link rel="stylesheet" href="pages/index.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Kamil">
@@ -12,13 +11,13 @@
 
 <body class="page">
   <header class="header page__section">
-    <a href="#"><img class="header__logo" src="./images/logo.svg" alt="Логотип"></a>
+    <a href="#"><img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип"></a>
   </header>
   <main class="content">
     <section class="profile page__section">
       <div class="profile__info">
-        <img class="profile__avatar" src="./images/face.jpg" alt="Аватар пользователя">
-        <div class="profile__text">
+        <img class="profile__avatar" src="<%=require('./images/face.jpg')%>" alt="Аватар пользователя">
+        <div class="profile__text">require
           <div class="profile__edit-container">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
             <button class="profile__edit" aria-label="редактировать профиль" type="button"></button>
@@ -39,9 +38,17 @@
   <div class="popup popup_type_edit">
     <div class="popup__container popup__container_type_edit">
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__input-container popup__input-container_type_edit" name="popup__input-container_type_edit">
-        <input class="popup__item popup__item_type_name" type="text" name="popup__item_type_name"  placeholder="Имя" required>
-        <input class="popup__item popup__item_type_about" type="text" name="popup__item_type_about" placeholder="Деятельность" required>
+      <form class="popup__input-container popup__input-container_type_edit" name="popup__input-container_type_edit" novalidate>
+        <section class="popup__input-section">
+          <input class="popup__input popup__input_type_name" id="input-name" type="text" name="input-name"  
+          placeholder="Имя" minlength="2" maxlength="40" required>
+          <span class="popup__input-error" id="input-name-error"></span>
+        </section>
+        <section class="popup__input-section">
+          <input class="popup__input popup__input_type_about" id="input-about" type="text" name="input-about" 
+          placeholder="Деятельность" minlength="2" maxlength="200" required>
+          <span class="popup__input-error" id="input-about-error"></span>
+        </section>
         <button class="popup__button" type="submit">Сохранить</button>
       </form>
       <button class="popup__close-icon" aria-label="закрыть модальное окно" type="button"></button>
@@ -50,10 +57,18 @@
   <div class="popup popup_type_add">
     <div class="popup__container popup__container_type_add">
       <h2 class="popup__title">Новое место</h2>
-      <form class="popup__input-container popup__input-container_type_add" name="popup__input-container_type_add">
-        <input class="popup__item popup__item_type_place" type="text" name="popup__item_type_place"  placeholder="Новое место" required>
-        <input class="popup__item popup__item_type_link" type="url" name="popup__item_type_link" placeholder="Ссылка на картинку" required>
-        <button class="popup__button" type="submit">Сохранить</button>
+      <form class="popup__input-container popup__input-container_type_add" name="popup__input-container_type_add" novalidate>
+        <section class="popup__input-section">
+          <input class="popup__input popup__input_type_place" id="input-place" type="text" name="popup__input_type_place"  
+          placeholder="Новое место" minlength="2" maxlength="30" required>
+          <span class="popup__input-error" id="input-place-error"></span>
+        </section>
+        <section class="popup__input-section">
+          <input class="popup__input popup__input_type_link" id="input-link" type="url" name="popup__input_type_link" 
+          placeholder="Ссылка на картинку" required>
+          <span class="popup__input-error" id="input-link-error"></span>
+        </section>
+        <button class="popup__button popup__button_inactive" type="submit">Сохранить</button>
       </form>
       <button class="popup__close-icon" aria-label="закрыть модальное окно" type="button"></button>
     </div>
@@ -75,7 +90,5 @@
     </div>
   </li>
 </template>
-<script src="./JS/initial-cards.js"></script>
-<script src="./JS/script.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-.popup__item {
+.popup__input {
   width: 358px;
   display: block;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
@@ -7,14 +7,15 @@
   line-height: 17px;
   border-style: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  margin: 30px 0 13px 0;
+  padding-bottom: 13px;
+  margin-bottom: 26px;
   outline: none;
 }
-.popup__item:first-child {
-  margin-top: 0;
+.popup__input:last-child {
+  margin-bottom: 0;
 }
 @media screen and (max-width: 767px) {
-  .popup__item {
+  .popup__input {
     width: 238px;
   }
 }
