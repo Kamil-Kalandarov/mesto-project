@@ -1,15 +1,11 @@
-import { cardTemplate, popupPicture, popupCaption, cardsContainer, popupZoom } from '../utils/constans.js';
+import { cardTemplate, popupPicture, popupCaption, popupZoom } from '../utils/constans.js';
 import { openPopup } from './modal.js';
-import { initialCards } from '../utils/initial-cards.js';
+
 /*Функция добавления созданной карточки функцией "createCard" в начало тега UL*/
 export function addCard(cardData, cardsContainer) {
   const card = createCard(cardData);
   cardsContainer.prepend(card);
 };
-/*Прохождение цикла по всему массиву "initialCards" и запуск функции "addCard"*/
-initialCards.forEach((cardData) => {
-  addCard(cardData, cardsContainer);
-});
 /*Функция создания новой карточки*/
 export function createCard(cardData) {
   /*Клонирование карточки из <Tamplate>*/
@@ -41,3 +37,4 @@ export function createCard(cardData) {
     cardName.textContent = cardData.name;
     return cardElement;
   };
+
