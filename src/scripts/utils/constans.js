@@ -17,10 +17,10 @@ export const popupZoom = document.querySelector('.popup_type_zoom');
 export const popupCaption = popupZoom.querySelector('.popup__caption');
 export const popupPicture = popupZoom.querySelector('.popup__image');
 export const popups = document.querySelectorAll('.popup');
-export const popupSubmitButton = formAdd.querySelector('.popup__button');
 export const apiConfig = {
-  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-6/',
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-6',
   headers: {
-    Authorization: 'f30482a5-e3ef-4544-b276-d2d77187c460'
-  }
+    Authorization: 'f30482a5-e3ef-4544-b276-d2d77187c460',
+    'Content-Type': 'application/json'
+  },
 };

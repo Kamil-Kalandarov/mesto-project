@@ -23,9 +23,13 @@ import {
   openPopup
 } from './scripts/components/modal.js';
 import { 
-  addCard
+  addCard,
 } from './scripts/components/cards.js';
-import { getCards } from './scripts/components/api.js';
+import { 
+  getCards, 
+  getUserData, 
+  addNewCard 
+} from './scripts/components/api.js';
 import './pages/index.css';
 
 /*Открытие модального окна и перердача значений полям ввода из заголоавков профиля*/
@@ -48,6 +52,9 @@ formAdd.addEventListener('submit', (evt) => {
     link: inputLink.value
   }, cardsContainer);
   formAdd.reset();
+  const popupSubmitButton = formAdd.querySelector('.popup__button');
+  popupSubmitButton.classList.add('popup__button_inactive');
+  popupSubmitButton.setAttribute('disabled', true)
     closePopup(popupAdd);
  });
 /*Закрытие модальных окон при нажатии на Overlay*/
@@ -62,5 +69,7 @@ popups.forEach((popup) => {
   });
 }); 
 
-getCards()
+getCards();
+getUserData();
+addNewCard();
 enableValidation();
