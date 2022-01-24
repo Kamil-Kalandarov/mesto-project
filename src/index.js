@@ -27,7 +27,6 @@ import {
 } from './scripts/components/cards.js';
 import { 
   getCards, 
-  getUserData, 
   addNewCard 
 } from './scripts/components/api.js';
 import './pages/index.css';
@@ -47,10 +46,11 @@ cardAddButton.addEventListener('click', () => {
 /*Смена действий браузера по умолчанию, при нажатии на кнопку отправки, на передачу свойствам "name" и "link" значений из Input*/
 formAdd.addEventListener('submit', (evt) => {
   evt.preventDefault();
+  addNewCard(inputPlace.value, inputLink.value);
   addCard({
     name: inputPlace.value,
     link: inputLink.value
-  }, cardsContainer);
+  }, cardsContainer)
   formAdd.reset();
   const popupSubmitButton = formAdd.querySelector('.popup__button');
   popupSubmitButton.classList.add('popup__button_inactive');
@@ -70,6 +70,7 @@ popups.forEach((popup) => {
 }); 
 
 getCards();
-getUserData();
-addNewCard();
+//getUserData();
+
 enableValidation();
+

@@ -4,7 +4,7 @@ import { openPopup } from './modal.js';
 /*Функция добавления созданной карточки функцией "createCard" в начало тега UL*/
 export function addCard(cardData, cardsContainer) {
   const card = createCard(cardData);
-  cardsContainer.prepend(card);
+  cardsContainer.append(card);
 };
 /*Функция создания новой карточки*/
 export function createCard(cardData) {

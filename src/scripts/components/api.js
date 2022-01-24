@@ -1,4 +1,4 @@
-import { apiConfig, cardsContainer, inputPlace, inputLink } from "../utils/constans";
+import { apiConfig, cardsContainer, inputLink, inputPlace } from "../utils/constans";
 import { addCard, createCard } from "./cards";
 
 
@@ -25,24 +25,19 @@ export const getCards = () => {
   });
 };
 
-export const getUserData = () => {
-  fetch(`${apiConfig.baseUrl}/users/me`, {
-    method: 'PATCH',
-    headers: apiConfig.headers,
-    body: JSON.stringify({
-      name: 'Каландаров Камиль',
-      about: 'Лингвист и Веб-разработчик'
-    })
-  });
-};
 
-export const addNewCard = () => {
+export const addNewCard = (name, link) => {
   fetch(`${apiConfig.baseUrl}/cards`, {
     method: 'POST',
-    headers: apiConfig.headers,
     body: JSON.stringify({
-      name: 'Индонезия',
-      link: 'https://cdn.pixabay.com/photo/2019/04/17/14/52/indonesia-4134451_960_720.jpg'
-    })
-  });
-};
+      name: name,
+      link: link
+    }),
+    headers: apiConfig.headers
+  })
+  .then(checkResponse)
+  .then(addCard({
+    name: inputPlace.value,
+    link: inputLink.value
+  }, cardsContainer))
+}
