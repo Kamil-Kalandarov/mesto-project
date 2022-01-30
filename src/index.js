@@ -1,4 +1,8 @@
 import { 
+  formUserAvatar,
+  profileAvatarImage,
+  popupUserAvatarChange,
+  profileChangeAvatarButton,
   profileEditButton, 
   inputName, 
   inputAbout, 
@@ -18,32 +22,40 @@ import {
   enableValidation,
 } from './scripts/components/validate';
 import { 
-  handleProfileFormSubmit, 
+  handleProfileInfoFormSubmit, 
+  handleChangeAvatarFormSubmit,
   closePopup,
   openPopup
 } from './scripts/components/modal.js';
 import { 
   addCard,
+  createCard
 } from './scripts/components/cards.js';
 import { 
-  getCards, 
-  addNewCard 
+  getAllData,
+  addNewCard
 } from './scripts/components/api.js';
 import './pages/index.css';
 
-/*Открытие модального окна и перердача значений полям ввода из заголоавков профиля*/
+
+profileChangeAvatarButton.addEventListener('click', () => {
+  openPopup(popupUserAvatarChange)
+})
+/* Обработка события 'submit' функциями "handleChangeAvatarFormSubmit" */
+formUserAvatar.addEventListener('submit', handleChangeAvatarFormSubmit);
+/* Открытие модального окна и перердача значений полям ввода из заголоавков профиля */
 profileEditButton.addEventListener('click', () => {
   inputName.value = profileTitle.textContent;
   inputAbout.value = profileSubtitle.textContent;
   openPopup(popupEdit);
 });
-/*Активации функции выше*/
-formEdit.addEventListener('submit', handleProfileFormSubmit);
-/*Открытие модального окна для добавления карочек*/
+/* Обработка события 'submit' функциями "handleProfileInfoFormSubmit" */
+formEdit.addEventListener('submit', handleProfileInfoFormSubmit);
+/* Открытие модального окна для добавления карочек */
 cardAddButton.addEventListener('click', () => {
   openPopup(popupAdd);
 });
-/*Смена действий браузера по умолчанию, при нажатии на кнопку отправки, на передачу свойствам "name" и "link" значений из Input*/
+/* Смена действий браузера по умолчанию, при нажатии на кнопку отправки, на передачу свойствам "name" и "link" значений из Input */
 formAdd.addEventListener('submit', (evt) => {
   evt.preventDefault();
   addNewCard(inputPlace.value, inputLink.value);
@@ -57,7 +69,7 @@ formAdd.addEventListener('submit', (evt) => {
   popupSubmitButton.setAttribute('disabled', true)
     closePopup(popupAdd);
  });
-/*Закрытие модальных окон при нажатии на Overlay*/
+/* Закрытие модальных окон при нажатии на Overlay */
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('popup_opened')) {
@@ -68,9 +80,22 @@ popups.forEach((popup) => {
     }
   });
 }); 
+/* Синхронных вызов двух промисов */
+getAllData()
+  .then(([cardData, userData]) => {
+    console.log(cardData)
+    cardData.reverse().forEach(cardData => {
+      createCard(cardData, userData._id);
+      addCard(cardData, cardsContainer);
+    });
+    console.log(userData)
+    profileTitle.textContent = userData.name,
+    profileSubtitle.textContent = userData.about,
+    profileAvatarImage.src = userData.avatar
+  })
+  .catch((err) => {
+    console.log(err)
+  });
 
-getCards();
-//getUserData();
 
 enableValidation();
-

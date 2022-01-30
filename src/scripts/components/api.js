@@ -1,43 +1,79 @@
-import { apiConfig, cardsContainer, inputLink, inputPlace } from "../utils/constans";
-import { addCard, createCard } from "./cards";
+import { apiConfig } from "../utils/constans";
 
-
+/* Проверка ответа от сервера */
 const checkResponse = (response) => {
   if (response.ok) {
     return response.json();
   };
   return Promise.reject(`Ошибка: ${response.status}`);
 };
-
+/* Добавление всех карточек на страницу с сервера */
 export const getCards = () => {
-  return fetch(`${apiConfig.baseUrl}/cards`, {
+  return fetch (`${apiConfig.baseUrl}/cards`, {
     headers: apiConfig.headers
 })
 .then(checkResponse)
-.then(cardData => {
-  cardData.forEach(cardData => {
-    createCard(cardData.name, cardData.link);
-    addCard(cardData, cardsContainer);
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 };
-
-
+/* Загрузка информации о пользователе с сервера */
+export const getUserData = () => {
+  return fetch (`${apiConfig.baseUrl}/users/me`, {
+    headers: apiConfig.headers,
+  })
+  .then(checkResponse)
+};
+/* Объединение двух промисов "getCards" и "getUserData в один промис"*/
+export const getAllData = () => {
+  return Promise.all([getCards(), getUserData()])
+}
+/* Отправка атрибутов 'name' и 'link' для дальнейшего добавления карточки через форму */
 export const addNewCard = (name, link) => {
-  fetch(`${apiConfig.baseUrl}/cards`, {
+  return fetch (`${apiConfig.baseUrl}/cards`, {
     method: 'POST',
+    headers: apiConfig.headers,
     body: JSON.stringify({
       name: name,
       link: link
     }),
-    headers: apiConfig.headers
   })
   .then(checkResponse)
-  .then(addCard({
-    name: inputPlace.value,
-    link: inputLink.value
-  }, cardsContainer))
+  .catch((err) => {
+    console.log(err);
+  });
+};
+/* Запрос на удаление карточки */
+export const deleteCard = (cardId) => {
+  return fetch (`${apiConfig.baseUrl}/card/${cardId}`, {
+    method: 'DELETE',
+    headers: apiConfig.headers,
+  })
+  .then(checkResponse)
+}
+/* Отправка атрибутов 'name' и 'about' для изменения данных пользователя */
+export const changeUserData = (name, about) => {
+  return fetch (`${apiConfig.baseUrl}/users/me`, {
+    method: 'PATCH',
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      name: name,
+      about: about,
+    }),
+  })
+  .then(checkResponse)
+  .catch((err) => {
+      console.log(err);
+    });
+};
+/* Отправка атрибута 'avatar' и 'about' для изменения аватара пользователя */
+export const changeUserAvatar = (avatar) => {
+  return fetch (`${apiConfig.baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      avatar: avatar
+    }),
+  })
+  .then(checkResponse)
+  .catch((err) => {
+    console.log(err);
+  });
 }
