@@ -36,13 +36,10 @@ export const addNewCard = (name, link) => {
     }),
   })
   .then(checkResponse)
-  .catch((err) => {
-    console.log(err);
-  });
 };
 /* Запрос на удаление карточки */
 export const deleteCard = (cardId) => {
-  return fetch (`${apiConfig.baseUrl}/card/${cardId}`, {
+  return fetch (`${apiConfig.baseUrl}/cards/${cardId}`, {
     method: 'DELETE',
     headers: apiConfig.headers,
   })
@@ -59,9 +56,6 @@ export const changeUserData = (name, about) => {
     }),
   })
   .then(checkResponse)
-  .catch((err) => {
-      console.log(err);
-    });
 };
 /* Отправка атрибута 'avatar' и 'about' для изменения аватара пользователя */
 export const changeUserAvatar = (avatar) => {
@@ -73,7 +67,20 @@ export const changeUserAvatar = (avatar) => {
     }),
   })
   .then(checkResponse)
-  .catch((err) => {
-    console.log(err);
-  });
-}
+};
+/* Запрос на добавление лайка */
+export const putCardLike = (cardId) => {
+  return fetch (`${apiConfig.baseUrl}/cards/likes/${cardId}`, {
+    method: 'PUT',
+    headers: apiConfig.headers,
+  })
+  .then(checkResponse)
+};
+/* Запрос на удаление лайка */
+export const deleteCardLike = (cardId) => {
+  return fetch (`${apiConfig.baseUrl}/cards/likes/${cardId}`, {
+    method: 'DELETE',
+    headers: apiConfig.headers,
+  })
+  .then(checkResponse)
+};

@@ -26,22 +26,39 @@ export const openPopup = (selectedPopup) => {
 };
 /* Функция для закрытия модального окна и передача значений полей ввода в заголовки профиля */
 export const handleProfileInfoFormSubmit = (evt) => {
+  const popupProfileSubmitButton = popupEdit.querySelector('.popup__button')
+  renderLoading(true, popupProfileSubmitButton);
   evt.preventDefault();
-  changeUserData(inputName.value, inputAbout.value)
-  profileTitle.textContent = inputName.value;
-  profileSubtitle.textContent = inputAbout.value;
-  closePopup(popupEdit);
+  changeUserData(inputName.value, inputAbout.value).then((userData) => {
+    profileTitle.textContent = inputName.value;
+    profileSubtitle.textContent = inputAbout.value;
+    closePopup(popupEdit);
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+  .finally(() => {
+    renderLoading(false, popupProfileSubmitButton);
+  });
 };
 /* Функция для закрытия модального окна и передача значения поля ввода в аватар профиля */
 export const handleChangeAvatarFormSubmit = (evt) => {
+  const popupAvatarSubmitButton = formUserAvatar.querySelector('.popup__button');
+  renderLoading(true, popupAvatarSubmitButton);
   evt.preventDefault();
-  changeUserAvatar(inputUserAvatarLink.value)
-  profileAvatarImage.src = inputUserAvatarLink.value
-  console.log(profileAvatarImage)
-  formUserAvatar.reset()
-  console.log('submited')
-  closePopup(popupUserAvatarChange)
-}
+  changeUserAvatar(inputUserAvatarLink.value).then((avatar) => {
+    profileAvatarImage.src = inputUserAvatarLink.value;
+    formUserAvatar.reset();
+    popupAvatarSubmitButton.classList.add('popup__button_inactive')
+    closePopup(popupUserAvatarChange)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+  .finally(() => {
+    renderLoading(false, popupAvatarSubmitButton);
+  });
+};
 /* Закрытие модальных окон клавишей "ESC" */
 export const poopupEscClose = (evt) => {
   if (evt.key === 'Escape') {
@@ -49,3 +66,11 @@ export const poopupEscClose = (evt) => {
     closePopup(popupOpened);
   };
 };
+
+export const renderLoading = (isLoading, buttonElement) => {
+  if (isLoading) {
+    buttonElement.textContent = "Сохранить..."
+  } else {
+    buttonElement.textContent = "Сохранить"
+  }
+}

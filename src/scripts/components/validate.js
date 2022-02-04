@@ -5,7 +5,6 @@ export const config = {
   inactiveButtonClass: 'popup__button_inactive',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_active'
-
 };
 
 // Показать ошибку
@@ -49,7 +48,6 @@ export const toggleButtonState = (inputListArray, submitButtonElement) => {
     submitButtonElement.removeAttribute('disabled');
   };
 };
-
 
 /*Нахождение всех инпутов и создание из них массива
 Выбор инпута по клику и дальнейший вызов функций checkinputValidity и toggleButtonState*/

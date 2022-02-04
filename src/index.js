@@ -25,11 +25,11 @@ import {
   handleProfileInfoFormSubmit, 
   handleChangeAvatarFormSubmit,
   closePopup,
-  openPopup
+  openPopup,
+  renderLoading
 } from './scripts/components/modal.js';
 import { 
-  addCard,
-  createCard
+  addCard
 } from './scripts/components/cards.js';
 import { 
   getAllData,
@@ -37,6 +37,7 @@ import {
 } from './scripts/components/api.js';
 import './pages/index.css';
 
+let userId = null;
 
 profileChangeAvatarButton.addEventListener('click', () => {
   openPopup(popupUserAvatarChange)
@@ -57,14 +58,19 @@ cardAddButton.addEventListener('click', () => {
 });
 /* Смена действий браузера по умолчанию, при нажатии на кнопку отправки, на передачу свойствам "name" и "link" значений из Input */
 formAdd.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  addNewCard(inputPlace.value, inputLink.value);
-  addCard({
-    name: inputPlace.value,
-    link: inputLink.value
-  }, cardsContainer)
-  formAdd.reset();
   const popupSubmitButton = formAdd.querySelector('.popup__button');
+  renderLoading(true, popupSubmitButton);
+  evt.preventDefault();
+  addNewCard(inputPlace.value, inputLink.value).then((cardData) => {
+      addCard(cardData, cardsContainer, userId)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      renderLoading(false, popupSubmitButton)
+    })
+  formAdd.reset();
   popupSubmitButton.classList.add('popup__button_inactive');
   popupSubmitButton.setAttribute('disabled', true)
     closePopup(popupAdd);
@@ -80,15 +86,13 @@ popups.forEach((popup) => {
     }
   });
 }); 
+
 /* Синхронных вызов двух промисов */
-getAllData()
-  .then(([cardData, userData]) => {
-    console.log(cardData)
+getAllData().then(([cardData, userData]) => {
     cardData.reverse().forEach(cardData => {
-      createCard(cardData, userData._id);
-      addCard(cardData, cardsContainer);
+      userId = userData._id;
+      addCard(cardData, cardsContainer, userId);
     });
-    console.log(userData)
     profileTitle.textContent = userData.name,
     profileSubtitle.textContent = userData.about,
     profileAvatarImage.src = userData.avatar
@@ -96,6 +100,5 @@ getAllData()
   .catch((err) => {
     console.log(err)
   });
-
 
 enableValidation();
