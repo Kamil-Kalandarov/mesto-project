@@ -18,26 +18,26 @@ import {
   popupAdd, 
   inputPlace, 
   inputLink
-} from './scripts/utils/constans.js';
+} from '../utils/constans.js';
 import { 
   validationConfig,
   enableValidation
-} from './scripts/components/validate';
+} from './validate.js';
 import { 
   handleProfileInfoFormSubmit, 
   handleChangeAvatarFormSubmit,
   closePopup,
   openPopup,
   renderLoading
-} from './scripts/components/modal.js';
+} from './modal.js';
 import { 
   addCard
-} from './scripts/components/cards.js';
+} from './cards.js';
 import { 
   getAllData,
   addNewCard
-} from './scripts/components/api.js';
-import './pages/index.css';
+} from './api.js';
+import '../../pages/index.css';
 
 let userId = null;
 
