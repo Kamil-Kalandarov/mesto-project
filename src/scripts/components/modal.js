@@ -8,6 +8,7 @@ import {
   formUserAvatar,
   profileAvatarImage,
   inputUserAvatarLink, 
+  formEditSubmitButton
 } from '../utils/constans.js';
 import { 
   changeUserData, 
@@ -17,18 +18,17 @@ import {
 /* Универсальные функции для закрытия и закрытия модального окна */
 export const closePopup = (selectedPopup) => {
   selectedPopup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', poopupEscClose)
+  document.removeEventListener('keydown', handleEscKey)
 };
 /* Универсальные функции для открытия и закрытия модального окна */
 export const openPopup = (selectedPopup) => {
   selectedPopup.classList.add('popup_opened');
-  document.addEventListener('keydown', poopupEscClose);
+  document.addEventListener('keydown', handleEscKey);
 };
 /* Функция для закрытия модального окна и передача значений полей ввода в заголовки профиля */
 export const handleProfileInfoFormSubmit = (evt) => {
-  const popupProfileSubmitButton = popupEdit.querySelector('.popup__button')
-  renderLoading(true, popupProfileSubmitButton);
   evt.preventDefault();
+  renderLoading(true, formEditSubmitButton);
   changeUserData(inputName.value, inputAbout.value).then((userData) => {
     profileTitle.textContent = inputName.value;
     profileSubtitle.textContent = inputAbout.value;
@@ -38,7 +38,7 @@ export const handleProfileInfoFormSubmit = (evt) => {
     console.log(err)
   })
   .finally(() => {
-    renderLoading(false, popupProfileSubmitButton);
+    renderLoading(false, formEditSubmitButton);
   });
 };
 /* Функция для закрытия модального окна и передача значения поля ввода в аватар профиля */
@@ -49,7 +49,8 @@ export const handleChangeAvatarFormSubmit = (evt) => {
   changeUserAvatar(inputUserAvatarLink.value).then((avatar) => {
     profileAvatarImage.src = inputUserAvatarLink.value;
     formUserAvatar.reset();
-    popupAvatarSubmitButton.classList.add('popup__button_inactive')
+    popupAvatarSubmitButton.classList.add('popup__button_inactive');
+    popupAvatarSubmitButton.setAttribute('disabled', true)
     closePopup(popupUserAvatarChange)
   })
   .catch((err) => {
@@ -60,7 +61,7 @@ export const handleChangeAvatarFormSubmit = (evt) => {
   });
 };
 /* Закрытие модальных окон клавишей "ESC" */
-export const poopupEscClose = (evt) => {
+export const handleEscKey = (evt) => {
   if (evt.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);

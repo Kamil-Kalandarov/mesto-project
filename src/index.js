@@ -9,6 +9,7 @@ import {
   formEdit, 
   cardAddButton, 
   formAdd, 
+  formAddSubmitButton,
   popups, 
   cardsContainer, 
   profileTitle, 
@@ -19,7 +20,8 @@ import {
   inputLink
 } from './scripts/utils/constans.js';
 import { 
-  enableValidation,
+  validationConfig,
+  enableValidation
 } from './scripts/components/validate';
 import { 
   handleProfileInfoFormSubmit, 
@@ -58,22 +60,21 @@ cardAddButton.addEventListener('click', () => {
 });
 /* Смена действий браузера по умолчанию, при нажатии на кнопку отправки, на передачу свойствам "name" и "link" значений из Input */
 formAdd.addEventListener('submit', (evt) => {
-  const popupSubmitButton = formAdd.querySelector('.popup__button');
-  renderLoading(true, popupSubmitButton);
   evt.preventDefault();
+  renderLoading(true, formAddSubmitButton);
   addNewCard(inputPlace.value, inputLink.value).then((cardData) => {
-      addCard(cardData, cardsContainer, userId)
+      addCard(cardData, cardsContainer, userId);
+      formAdd.reset();
+      formAddSubmitButton.classList.add('popup__button_inactive');
+      formAddSubmitButton.setAttribute('disabled', true);
+      closePopup(popupAdd);
     })
     .catch((err) => {
       console.log(err)
     })
     .finally(() => {
-      renderLoading(false, popupSubmitButton)
+      renderLoading(false, formAddSubmitButton)
     })
-  formAdd.reset();
-  popupSubmitButton.classList.add('popup__button_inactive');
-  popupSubmitButton.setAttribute('disabled', true)
-    closePopup(popupAdd);
  });
 /* Закрытие модальных окон при нажатии на Overlay */
 popups.forEach((popup) => {
@@ -101,4 +102,4 @@ getAllData().then(([cardData, userData]) => {
     console.log(err)
   });
 
-enableValidation();
+enableValidation(validationConfig);

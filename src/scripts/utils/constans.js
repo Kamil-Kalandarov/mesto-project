@@ -1,11 +1,13 @@
 export const popupEdit = document.querySelector('.popup_type_edit');
-export const formEdit = popupEdit.querySelector('.popup__input-container_type_edit')
+export const formEdit = popupEdit.querySelector('.popup__input-container_type_edit');
+export const formEditSubmitButton = formEdit.querySelector('.popup__button');
 export const inputName = formEdit.querySelector('.popup__input_type_name');
 export const inputAbout = formEdit.querySelector('.popup__input_type_about');
 export const popupAdd = document.querySelector('.popup_type_add');
 export const formAdd = popupAdd.querySelector('.popup__input-container_type_add');
 export const inputPlace = formAdd.querySelector('.popup__input_type_place');
 export const inputLink = formAdd.querySelector('.popup__input_type_link');
+export const formAddSubmitButton = formAdd.querySelector('.popup__button');
 export const popupUserAvatarChange = document.querySelector('.popup_type_user-avatar')
 export const formUserAvatar = popupUserAvatarChange.querySelector('.popup__input-container_type_user-avatar');
 export const inputUserAvatarLink = formUserAvatar.querySelector('.popup__input_type_user-avatar');

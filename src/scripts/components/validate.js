@@ -1,28 +1,30 @@
-export const config = {
+export const validationConfig = {
   formSelector: '.popup__input-container',
+  inputSectionSelector: '.popup__input-section',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_inactive',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
+  erroeMessageClass:'.popup__input-error',
+  errorMessageActiveClass: 'popup__input-error_active'
 };
 
 // Показать ошибку
 export const showInputError = (inputElement, errorMessage) => {
-  const errorMessageElement = inputElement.closest('.popup__input-section').querySelector('.popup__input-error');
+  const errorMessageElement = inputElement.closest(validationConfig.inputSectionSelector).querySelector(validationConfig.erroeMessageClass);
   console.log(errorMessageElement);
   errorMessageElement.textContent = errorMessage;
-  errorMessageElement.classList.add(config.errorClass);
-  inputElement.classList.add(config.inputErrorClass);
+  errorMessageElement.classList.add(validationConfig.errorMessageActiveClass);
+  inputElement.classList.add(validationConfig.inputErrorClass);
 };
 
 // Скрыть ошибку
 export const hideInputError = (inputElement) => {
-  const errorMessageElement = inputElement.closest('.popup__input-section').querySelector('.popup__input-error');
+  const errorMessageElement = inputElement.closest(validationConfig.inputSectionSelector).querySelector(validationConfig.erroeMessageClass);;
   console.log(errorMessageElement);
   errorMessageElement.textContent = '';
-  errorMessageElement.classList.remove(config.errorClass);
-  inputElement.classList.remove(config.inputErrorClass);
+  errorMessageElement.classList.remove(validationConfig.errorMessageActiveClass);
+  inputElement.classList.remove(validationConfig.inputErrorClass);
 };
 
 // Проверить валидность поля
@@ -41,10 +43,10 @@ export const toggleButtonState = (inputListArray, submitButtonElement) => {
   const findAtLeastOneInvalidInput = inputElement => !inputElement.validity.valid;
   const hasInvalidInput = inputListArray.some(findAtLeastOneInvalidInput);
   if(hasInvalidInput) {
-    submitButtonElement.classList.add(config.inactiveButtonClass);
+    submitButtonElement.classList.add(validationConfig.inactiveButtonClass);
     submitButtonElement.setAttribute('disabled', true);
   } else {
-    submitButtonElement.classList.remove(config.inactiveButtonClass);
+    submitButtonElement.classList.remove(validationConfig.inactiveButtonClass);
     submitButtonElement.removeAttribute('disabled');
   };
 };
@@ -52,9 +54,9 @@ export const toggleButtonState = (inputListArray, submitButtonElement) => {
 /*Нахождение всех инпутов и создание из них массива
 Выбор инпута по клику и дальнейший вызов функций checkinputValidity и toggleButtonState*/
 export const setEventListeners = (formElement,) => {
-  const inputList = formElement.querySelectorAll(config.inputSelector);
+  const inputList = formElement.querySelectorAll(validationConfig.inputSelector);
   const inputListArray = Array.from(inputList);
-  const submitButtonElement = formElement.querySelector(config.submitButtonSelector); 
+  const submitButtonElement = formElement.querySelector(validationConfig.submitButtonSelector); 
   const handleInput = (event) => {
     const inputElement = event.target;
     checkinputValidity(inputElement);
@@ -67,7 +69,7 @@ export const setEventListeners = (formElement,) => {
 };
 // Нахождение всех форм и создание из них массива
 export const enableValidation = () => {
-  const formList = document.querySelectorAll(config.formSelector);
+  const formList = document.querySelectorAll(validationConfig.formSelector);
   const formListArray = Array.from(formList);
   const handlerFormSubmit = (event) => { // отмена перезагрузки страницы при отправке формы
     event.preventDefault();
