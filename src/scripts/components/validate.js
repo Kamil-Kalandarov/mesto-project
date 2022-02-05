@@ -53,10 +53,11 @@ export const toggleButtonState = (inputListArray, submitButtonElement) => {
 
 /*Нахождение всех инпутов и создание из них массива
 Выбор инпута по клику и дальнейший вызов функций checkinputValidity и toggleButtonState*/
-export const setEventListeners = (formElement,) => {
+export const setEventListeners = (formElement, validationConfig) => {
   const inputList = formElement.querySelectorAll(validationConfig.inputSelector);
   const inputListArray = Array.from(inputList);
   const submitButtonElement = formElement.querySelector(validationConfig.submitButtonSelector); 
+  toggleButtonState(inputListArray, submitButtonElement);
   const handleInput = (event) => {
     const inputElement = event.target;
     checkinputValidity(inputElement);
@@ -68,7 +69,7 @@ export const setEventListeners = (formElement,) => {
   inputListArray.forEach(inputListIterator);
 };
 // Нахождение всех форм и создание из них массива
-export const enableValidation = () => {
+export const enableValidation = (validationConfig) => {
   const formList = document.querySelectorAll(validationConfig.formSelector);
   const formListArray = Array.from(formList);
   const handlerFormSubmit = (event) => { // отмена перезагрузки страницы при отправке формы
@@ -76,7 +77,7 @@ export const enableValidation = () => {
   };
   const formListIterator = formElement => {
     formElement.addEventListener('submit', handlerFormSubmit);
-    setEventListeners(formElement);
+    setEventListeners(formElement, validationConfig);
   };
   formListArray.forEach(formListIterator);
 };
