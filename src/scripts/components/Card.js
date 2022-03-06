@@ -1,14 +1,14 @@
 export default class Card {
-  constructor ( { cardData }, templateSelector, handleCardClick, handleLikeCard, handleDeleteCard) {
+  constructor ( { cardData }, templateSelector) {
     this._name = cardData.name;
     this._link = cardData.link;
     this._likes = cardData.likes;
     this._cardId = cardData._id;
     this._ownerId = cardData.owner._id;
     this._templateSelector = templateSelector;
-    this._handleCardClick = handleCardClick;
-    this._handleLikeCard = handleLikeCard;
-    this._handleDeleteCard = handleDeleteCard;
+    //this._handleCardClick = handleCardClick;
+    //this._handleLikeCard = handleLikeCard;
+    //this._handleDeleteCard = handleDeleteCard;
   };
 /* Клонирование разметки карточки */
   _getElement() {

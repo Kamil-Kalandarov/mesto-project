@@ -25,10 +25,10 @@ const handleEditFormSubmit = () => {
   const inputName = document.querySelector('.popup__input_type_name');
   const inputAbout = document.querySelector('.popup__input_type_name');
   api.changeUserData(inputName, inputAbout).then((userData) => {
-    userInfo.getUserInfo()
+    userInfo.getUserInfo(userData)
   })
-};*/
-/*
+};
+
 const popupEdit = new PopupWithForm('.popup_type_edit', handleEditFormSubmit())
 popupEdit.setEventListeners();*/
 
@@ -36,10 +36,10 @@ popupEdit.setEventListeners();*/
 //popupAdd.setEventListeners();
 
 //const popupWithImage = new PopupWithImage('.popup_type_zoom', '.popup__image', '.popup__caption');
-//popupWithImage.setEventListeners();
-/*
+//popupWithImage.setEventListeners();*/
+
 const createCard = (cardData) => {
-  const card = new Card(cardData, '#cards', handleCardClick, handleLikeCard, handleDeleteCard);
+  const card = new Card(cardData, '#cards');
   return card.generate();
 };
 
@@ -53,7 +53,7 @@ api.getCards().then((cardData) => {
   cardData.forEach((card) => {
     cardSection.renderItems(createCard(cardData));
   })
-})*/
+})
 
 
 const userInfo = new UserInfo ('.profile__title', '.profile__subtitle');

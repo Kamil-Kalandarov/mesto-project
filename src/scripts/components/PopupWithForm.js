@@ -7,10 +7,10 @@ export default class PopupWithForm extends Popup {
   };
 /* Получение значений из полей ввода */
   _getInputValues() {
-    this._inputList = this.selectorPopup.querySelectorAll('.popup__input');
+    this._inputList = this._selectorPopup.querySelectorAll('.popup__input');
     this._newInputValues = {};
-    this._inputSelector.forEach((inputElement) => {
-      this._newInputValues = [inputElement.name] = inputElement.value
+    this._inputList.forEach((inputElement) => {
+      this._newInputValues = inputElement.value
     });
     return _newInputValues;
   };
@@ -26,7 +26,8 @@ export default class PopupWithForm extends Popup {
 /* Установка слушателей */
   setEventListeners() {
     super.setEventListeners();
-    this._selectorPopup.addEventListener('submit', (event) => {
+    this._formSelector = this._selectorPopup.querySelector('.popup__input-container');
+    this._formSelector.addEventListener('submit', (event) => {
       event.preventDefault()
     });
     this._handleFormSubmit(this._getInputValues());
