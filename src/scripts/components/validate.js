@@ -1,15 +1,6 @@
-export const validationConfig = {
-  formSelector: '.popup__input-container',
-  inputSectionSelector: '.popup__input-section',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  erroeMessageClass:'.popup__input-error',
-  errorMessageActiveClass: 'popup__input-error_active'
-};
 
-// Показать ошибку
+
+/*
 export const showInputError = (inputElement, errorMessage) => {
   const errorMessageElement = inputElement.closest(validationConfig.inputSectionSelector).querySelector(validationConfig.erroeMessageClass);
   console.log(errorMessageElement);
@@ -51,8 +42,7 @@ export const toggleButtonState = (inputListArray, submitButtonElement) => {
   };
 };
 
-/*Нахождение всех инпутов и создание из них массива
-Выбор инпута по клику и дальнейший вызов функций checkinputValidity и toggleButtonState*/
+
 export const setEventListeners = (formElement, validationConfig) => {
   const inputList = formElement.querySelectorAll(validationConfig.inputSelector);
   const inputListArray = Array.from(inputList);
@@ -80,6 +70,4 @@ export const enableValidation = (validationConfig) => {
     setEventListeners(formElement, validationConfig);
   };
   formListArray.forEach(formListIterator);
-};
-
-
+};*/

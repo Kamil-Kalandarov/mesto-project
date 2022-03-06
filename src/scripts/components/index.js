@@ -1,64 +1,111 @@
-import { 
-  formUserAvatar,
-  profileAvatarImage,
-  popupUserAvatarChange,
-  profileChangeAvatarButton,
-  profileEditButton, 
-  inputName, 
-  inputAbout, 
-  formEdit, 
-  cardAddButton, 
-  formAdd, 
-  formAddSubmitButton,
-  popups, 
-  cardsContainer, 
-  profileTitle, 
-  profileSubtitle, 
-  popupEdit, 
-  popupAdd, 
-  inputPlace, 
-  inputLink
-} from '../utils/constans.js';
-import { 
-  validationConfig,
-  enableValidation
-} from './validate.js';
-import { 
-  handleProfileInfoFormSubmit, 
-  handleChangeAvatarFormSubmit,
-  closePopup,
-  openPopup,
-  renderLoading
-} from './modal.js';
-import { 
-  addCard
-} from './cards.js';
-import { 
-  getAllData,
-  addNewCard
-} from './api.js';
+import Api from './Api.js';
+import Popup from './Popup.js';
+import PopupWithForm from './PopupWithForm.js';
+import PopupWithImage from './PopupWithImage.js';
+import Section from './Section.js';
+import UserInfo from './UserInfo.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+import { validationConfig } from '../utils/validationConfig.js';
+import { profileEditButton } from '../utils/constans.js'
 import '../../pages/index.css';
+
+const api = new Api (
+  'https://nomoreparties.co/v1/plus-cohort-6',
+  {
+    Authorization: 'f30482a5-e3ef-4544-b276-d2d77187c460',
+    'Content-Type': 'application/json'
+});
+/*
+profileEditButton.addEventListener('click', () => {
+  popupEdit.openPopup()
+})*/
+/*
+const handleEditFormSubmit = () => {
+  const inputName = document.querySelector('.popup__input_type_name');
+  const inputAbout = document.querySelector('.popup__input_type_name');
+  api.changeUserData(inputName, inputAbout).then((userData) => {
+    userInfo.getUserInfo()
+  })
+};*/
+/*
+const popupEdit = new PopupWithForm('.popup_type_edit', handleEditFormSubmit())
+popupEdit.setEventListeners();*/
+
+//const popupAdd = new PopupWithForm('.popup_type_add', '.popup__input', handleFormSubmit)
+//popupAdd.setEventListeners();
+
+//const popupWithImage = new PopupWithImage('.popup_type_zoom', '.popup__image', '.popup__caption');
+//popupWithImage.setEventListeners();
+/*
+const createCard = (cardData) => {
+  const card = new Card(cardData, '#cards', handleCardClick, handleLikeCard, handleDeleteCard);
+  return card.generate();
+};
+
+const cardSection = new Section({
+  renderer: (cardData) => {
+    cardSection.addItem(createCard(cardData));
+  }
+}, 'cards');
+
+api.getCards().then((cardData) => {
+  cardData.forEach((card) => {
+    cardSection.renderItems(createCard(cardData));
+  })
+})*/
+
+
+const userInfo = new UserInfo ('.profile__title', '.profile__subtitle');
 
 let userId = null;
 
+
+
+api.getUserData().then((userData) => {
+  userInfo.setUserInfo(userData)
+})
+
+/*
+const getInfo = Promise.all([api.getCards(), api.getUserData()])
+  .then(([cardData, userData]) => {
+    cardData.reverse().forEach((cardData) => {
+      console.log(cardData.name)
+      cardSection.renderItems(createCard(cardData));
+    });
+  })
+  .catch((err) => {
+    console.log(err)
+  });*/
+
+
+
+//enableValidation(validationConfig);
+
+
+
+
+
+
+/*
 profileChangeAvatarButton.addEventListener('click', () => {
   openPopup(popupUserAvatarChange)
 })
-/* Обработка события 'submit' функциями "handleChangeAvatarFormSubmit" */
+
 formUserAvatar.addEventListener('submit', handleChangeAvatarFormSubmit);
-/* Открытие модального окна и перердача значений полям ввода из заголоавков профиля */
+
 profileEditButton.addEventListener('click', () => {
   inputName.value = profileTitle.textContent;
   inputAbout.value = profileSubtitle.textContent;
   openPopup(popupEdit);
 });
-/* Обработка события 'submit' функциями "handleProfileInfoFormSubmit" */
+
 formEdit.addEventListener('submit', handleProfileInfoFormSubmit);
-/* Открытие модального окна для добавления карочек */
+
 cardAddButton.addEventListener('click', () => {
   openPopup(popupAdd);
 });
-/* Смена действий браузера по умолчанию, при нажатии на кнопку отправки, на передачу свойствам "name" и "link" значений из Input */
+
 formAdd.addEventListener('submit', (evt) => {
   evt.preventDefault();
   renderLoading(true, formAddSubmitButton);
@@ -76,7 +123,7 @@ formAdd.addEventListener('submit', (evt) => {
       renderLoading(false, formAddSubmitButton)
     })
  });
-/* Закрытие модальных окон при нажатии на Overlay */
+
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('popup_opened')) {
@@ -86,20 +133,4 @@ popups.forEach((popup) => {
       closePopup(popup);
     }
   });
-}); 
-
-/* Синхронных вызов двух промисов */
-getAllData().then(([cardData, userData]) => {
-    cardData.reverse().forEach(cardData => {
-      userId = userData._id;
-      addCard(cardData, cardsContainer, userId);
-    });
-    profileTitle.textContent = userData.name,
-    profileSubtitle.textContent = userData.about,
-    profileAvatarImage.src = userData.avatar
-  })
-  .catch((err) => {
-    console.log(err)
-  });
-
-enableValidation(validationConfig);
+}); */

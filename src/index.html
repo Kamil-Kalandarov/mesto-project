@@ -30,15 +30,13 @@
       </div>
       <button class="profile__add" aria-label="добавить карточку" type="button"></button>
     </section>
-    <section class="elements page__section">
-      <ul class="cards">
-      </ul>
+    <section class="cards page__section">
     </section>
   </main>
   <footer class="footer page__section">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
-  <div class="popup popup_type_edit">
+  <article class="popup popup_type_edit">
     <div class="popup__container popup__container_type_edit">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__input-container popup__input-container_type_edit" name="popup__input-container_type_edit" novalidate>
@@ -56,8 +54,8 @@
       </form>
       <button class="popup__close-icon" aria-label="закрыть модальное окно" type="button"></button>
     </div>
-  </div>
-  <div class="popup popup_type_add">
+  </article>
+  <article class="popup popup_type_add">
     <div class="popup__container popup__container_type_add">
       <h2 class="popup__title">Новое место</h2>
       <form class="popup__input-container popup__input-container_type_add" name="popup__input-container_type_add" novalidate>
@@ -75,16 +73,15 @@
       </form>
       <button class="popup__close-icon" aria-label="закрыть модальное окно" type="button"></button>
     </div>
-  </div>
-  <div class="popup popup_type_zoom">
+  </article>
+  <article class="popup popup_type_zoom">
     <figure class="popup__figure">
       <button class="popup__close-icon" aria-label="закрыть модальное окно" type="button"></button>
       <img class="popup__image" src="#" alt="">
       <figcaption class="popup__caption"></figcaption>
     </figure>
-  </div>
-
-  <div class="popup popup_type_user-avatar">
+  </article>
+  <article class="popup popup_type_user-avatar">
     <div class="popup__container popup__container_user-avatar">
       <h2 class="popup__title">Обновить аватар</h2>
       <form class="popup__input-container popup__input-container_type_user-avatar" name="popup__input-container_type_user-avatar" novalidate>
@@ -97,10 +94,10 @@
       </form>
       <button class="popup__close-icon" aria-label="закрыть модальное окно" type="button"></button>
     </div>
-  </div>
+  </article>
 
 <template id="cards">
-  <li class="cards__card">
+  <article class="cards__card">
     <button class="cards__delete" type="button"></button>
     <img class="cards__pic" src="#" alt="">
     <div class="cards__text">
@@ -110,7 +107,7 @@
         <p class="cards__like-counter"></p>
       </div>
     </div>
-  </li>
+  </article>
 </template>
 </body>
 </html>

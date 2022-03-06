@@ -1,3 +1,4 @@
+/*
 import { 
   cardTemplate, 
   popupPicture, 
@@ -8,19 +9,21 @@ import {
   deleteCard,
   putCardLike,
   deleteCardLike
-} from './api.js';
-import { openPopup } from './modal.js';
+} from './Api.js';
 
-/* Функция добавления созданной карточки функцией "createCard" в начало тега UL */
+
+
+
+
+
 export const addCard = (cardData, cardsContainer, userId) => {
   const card = createCard(cardData, userId);
   cardsContainer.prepend(card);
 };
-/* Функция создания новой карточки */ 
+
 export const createCard = (cardData, userId) => {
-  /* Клонирование карточки из <Tamplate> */
+
     const cardElement = cardTemplate.querySelector('.cards__card').cloneNode(true);
-  /* Присвоение переменной каждому элементу карточки */
     const cardImage = cardElement.querySelector('.cards__pic');
     const cardName = cardElement.querySelector('.cards__title');
     const cardLike = cardElement.querySelector('.cards__like-button');
@@ -36,19 +39,19 @@ export const createCard = (cardData, userId) => {
     if (userId !== cardOwnerId) {
       cardDelete.classList.toggle('cards__delete_inactive')
     }
-  /* Открытие модального окна с большим изображением карточки */
+
     cardImage.addEventListener('click', () => {
-  /* Присвоение одинаковых значений для модального окна */
+
       popupPicture.src = cardImage.src;
       popupPicture.alt = cardName.textContent;
       popupCaption.textContent = cardName.textContent;
       openPopup(popupZoom);
     });
-  /* Удаление карточки */
+ 
     cardDelete.addEventListener('click', () => {
       handleCardDelete(cardElement, cardId);
     });
-    /* Постановка лайка */
+  
     cardLike.addEventListener('click', () => {
       handleCardLike(cardId, cardData, cardLike, cardLikeCounter);
     });
@@ -57,7 +60,7 @@ export const createCard = (cardData, userId) => {
     cardName.textContent = cardData.name;
     return cardElement;
   };
-/* Функция постановки и удаления лайка */
+
 export const handleCardLike = (cardId, cardData, cardLike, cardLikeCounter) => {
   if (!cardLike.classList.contains('cards__like-button_active')) {
     putCardLike(cardId).then((cardData) => {
@@ -77,7 +80,7 @@ export const handleCardLike = (cardId, cardData, cardLike, cardLikeCounter) => {
     });
   };
 };
-/* Функция удаления своей карточки */
+
 export const handleCardDelete = (cardElement, cardId) => {
   deleteCard(cardId)
     .then(() => {
@@ -86,5 +89,4 @@ export const handleCardDelete = (cardElement, cardId) => {
     .catch((err) => {
       console.log(err)
     });
-};
-
+};*/
