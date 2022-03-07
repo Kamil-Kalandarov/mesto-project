@@ -16,21 +16,21 @@ const api = new Api (
     Authorization: 'f30482a5-e3ef-4544-b276-d2d77187c460',
     'Content-Type': 'application/json'
 });
-/*
+
+const popupEdit = new PopupWithForm('.popup_type_edit')
+popupEdit.setEventListeners();
+
 profileEditButton.addEventListener('click', () => {
   popupEdit.openPopup()
-})*/
+})
 /*
 const handleEditFormSubmit = () => {
   const inputName = document.querySelector('.popup__input_type_name');
   const inputAbout = document.querySelector('.popup__input_type_name');
-  api.changeUserData(inputName, inputAbout).then((userData) => {
+  api.changeUserData(inputName.value, inputAbout.value).then((userData) => {
     userInfo.getUserInfo(userData)
   })
-};
-
-const popupEdit = new PopupWithForm('.popup_type_edit', handleEditFormSubmit())
-popupEdit.setEventListeners();*/
+};*/
 
 //const popupAdd = new PopupWithForm('.popup_type_add', '.popup__input', handleFormSubmit)
 //popupAdd.setEventListeners();

@@ -4,7 +4,7 @@ export default class Popup {
   };
 /* Открытие модального окна */
   openPopup() {
-    this.selectedPopup.classList.add('popup_opened');
+    this._selectedPopup.classList.add('popup_opened');
     document.addEventListener('keydown', this._handleEscKey);
   };
 /* Закрытие модального окна */
@@ -20,7 +20,7 @@ export default class Popup {
   };
 /* Постановка слушателей для закрытия модального окна по клику на "Overlay" и крестик */
   setEventListeners() {
-    this._selectorPopup.addEventListener('click', () => {
+    this._selectorPopup.addEventListener('click', (evt) => {
       if (evt.target.classList.contains('popup_opened')) {
         this.closePopup;
       };

@@ -1,9 +1,9 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor (selectorPopup, handleFormSubmit) {
+  constructor (selectorPopup) {
     super(selectorPopup);
-    this._handleFormSubmit = handleFormSubmit;
+    //this._handleFormSubmit = handleFormSubmit;
   };
 /* Получение значений из полей ввода */
   _getInputValues() {
@@ -12,7 +12,7 @@ export default class PopupWithForm extends Popup {
     this._inputList.forEach((inputElement) => {
       this._newInputValues = inputElement.value
     });
-    return _newInputValues;
+    console.log(this._newInputValues);
   };
 /* Сброс значений полей ввода */
   resetForm() {
@@ -30,6 +30,6 @@ export default class PopupWithForm extends Popup {
     this._formSelector.addEventListener('submit', (event) => {
       event.preventDefault()
     });
-    this._handleFormSubmit(this._getInputValues());
+    //this._handleFormSubmit(this._getInputValues());
     }
 };
