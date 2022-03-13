@@ -1,13 +1,20 @@
 import Api from './Api.js';
 import Popup from './Popup.js';
+import FormValidator from './FormValidator.js';
 import PopupWithForm from './PopupWithForm.js';
 import PopupWithImage from './PopupWithImage.js';
 import Section from './Section.js';
 import UserInfo from './UserInfo.js';
 import Card from './Card.js';
-import FormValidator from './FormValidator.js';
+import { 
+  EditprofileButton, 
+  inputName, 
+  inputAbout,
+  addCardButton,
+  inputPlace,
+  inputLink
+} from '../utils/constans.js';
 import { validationConfig } from '../utils/validationConfig.js';
-import { profileEditButton } from '../utils/constans.js'
 import '../../pages/index.css';
 
 const api = new Api (
@@ -17,29 +24,89 @@ const api = new Api (
     'Content-Type': 'application/json'
 });
 
-const popupEdit = new PopupWithForm('.popup_type_edit')
+let userId = null;
+
+const getInfo = Promise.all([api.getUserData(), api.getCards()])
+  .then(([userData, cardData]) => {
+    userInfo.setUserInfo(userData);
+    userId = userData._id;
+    cardSection.renderItems(cardData);
+  })
+  .catch((err) => {
+    console.log(err)
+  });
+
+  
+
+const FormEditValidator = new FormValidator (
+  '.popup__input-container_type_edit',
+  validationConfig
+);
+
+FormEditValidator.enableValidation()
+
+
+const popupEdit = new PopupWithForm(
+  '.popup_type_edit', 
+  '.popup__input-container_type_edit',
+  handleFormEditSubmit
+);
+
 popupEdit.setEventListeners();
 
-profileEditButton.addEventListener('click', () => {
+EditprofileButton.addEventListener('click', () => {
+  const userData = userInfo.getUserInfo()
+  inputName.value = userData.name;
+  inputAbout.value = userData.about
   popupEdit.openPopup()
-})
-/*
-const handleEditFormSubmit = () => {
-  const inputName = document.querySelector('.popup__input_type_name');
-  const inputAbout = document.querySelector('.popup__input_type_name');
-  api.changeUserData(inputName.value, inputAbout.value).then((userData) => {
-    userInfo.getUserInfo(userData)
-  })
-};*/
+});
 
-//const popupAdd = new PopupWithForm('.popup_type_add', '.popup__input', handleFormSubmit)
-//popupAdd.setEventListeners();
+const handleFormEditSubmit = (inpuValues) => {
+  
+  api.changeUserData(inputName.value, inputAbout.value)
+    .then((userData) => {
+    userInfo.setUserInfo(userData)
+  });
+};
+
+const popupAdd = new PopupWithForm(
+  '.popup_type_add', 
+  '.popup__input-container_type_add', 
+  handleFormAddSubmit
+);
+
+popupAdd.setEventListeners();
+
+addCardButton.addEventListener('click', () => {
+  popupAdd.openPopup();
+});
+
+const handleFormAddSubmit = () => {
+  api.addNewCard(inputPlace.value, inputLink.value)
+    .then((cardData) => {
+      cardSection.addItem(createCard(cardData))
+    });
+};
 
 //const popupWithImage = new PopupWithImage('.popup_type_zoom', '.popup__image', '.popup__caption');
 //popupWithImage.setEventListeners();*/
 
+const handleLikeCard = (card) => {
+  if (!card.isLiked()) {
+    api.putCardLike(card.id())
+      .then(cardData => {
+        card.updateLikesView(cardData);
+      })
+  } else {
+    api.deleteCardLike(card.id())
+      .then(cardData => {
+        card.updateLikesView(cardData);
+      })
+  }
+}
+
 const createCard = (cardData) => {
-  const card = new Card(cardData, '#cards');
+  const card = new Card({cardData, handleLikeCard}, userId, '#cards');
   return card.generate();
 };
 
@@ -47,42 +114,26 @@ const cardSection = new Section({
   renderer: (cardData) => {
     cardSection.addItem(createCard(cardData));
   }
-}, 'cards');
+}, '.cards');
 
-api.getCards().then((cardData) => {
-  cardData.forEach((card) => {
-    cardSection.renderItems(createCard(cardData));
-  })
-})
+const userInfo = new UserInfo (
+  '.profile__title', 
+  '.profile__subtitle', 
+  '.profile__avatar'
+);
 
-
-const userInfo = new UserInfo ('.profile__title', '.profile__subtitle');
-
-let userId = null;
-
-
-
-api.getUserData().then((userData) => {
-  userInfo.setUserInfo(userData)
-})
-
-/*
-const getInfo = Promise.all([api.getCards(), api.getUserData()])
-  .then(([cardData, userData]) => {
-    cardData.reverse().forEach((cardData) => {
-      console.log(cardData.name)
-      cardSection.renderItems(createCard(cardData));
-    });
-  })
-  .catch((err) => {
-    console.log(err)
-  });*/
 
 
 
 //enableValidation(validationConfig);
 
-
+/*
+api.getCards().then((cardData) => {
+    cardSection.renderItems(cardData);
+})
+api.getUserData().then((userData) => {
+  userInfo.setUserInfo(userData)
+})*/
 
 
 

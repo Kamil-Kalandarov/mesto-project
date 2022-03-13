@@ -1,14 +1,23 @@
 export default class FormValidator {
-  constructor (validationConfig, formSelector) {
+  constructor (formSelector, validationConfig, ) {
     this._formSelector = formSelector;
+    //console.log(this._formSelector)
     this._inputSectionSelector = validationConfig.inputSectionSelector;
+    //console.log(this._inputSectionSelector)
     this._inputSelector = validationConfig.inputSelector;
-    this._inputList = Array.from(this._formSelector.querySelectorAll(this._inputSelector));
+    //console.log(this._inputSelector)
+    this._inputList = Array.from(this._formSelector.querySelectorAll(validationConfig.inputSelector));
+    //console.log(this._inputList)
     this._submitButtonSelector = this._formSelector.querySelector(validationConfig.submitButtonSelector);
+    //console.log(this._submitButtonSelector) 
     this._inactiveButtonClass = validationConfig.inactiveButtonClass;
+    //console.log(this._inactiveButtonClass)
     this._inputErrorClass = validationConfig.inputErrorClass;
+    //console.log(this._inputErrorClass)
     this._erroeMessageClass = validationConfig.erroeMessageClass;
+    //console.log(this._erroeMessageClass)
     this._errorMessageActiveClass = validationConfig.errorMessageActiveClass;
+    //console.log(this._errorMessageActiveClass)
   };
 /* Показать ошибку */
   _showInputError() {
@@ -18,6 +27,7 @@ export default class FormValidator {
     errorMessageElement.textContent = errorMessage;
     errorMessageElement.classList.add(this._errorMessageActiveClass);
     this._inputSelector.classList.add(this._inputErrorClass);
+    console.log(errorMessageElement)
   };
 /* Скрыть ошибку */
   _hideInputError() {

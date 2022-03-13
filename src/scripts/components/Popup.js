@@ -4,28 +4,28 @@ export default class Popup {
   };
 /* Открытие модального окна */
   openPopup() {
-    this._selectedPopup.classList.add('popup_opened');
-    document.addEventListener('keydown', this._handleEscKey);
+    this._selectorPopup.classList.add('popup_opened');
+    document.addEventListener('keydown', this._handleEscKey.bind(this));
   };
 /* Закрытие модального окна */
   closePopup() {
     this._selectorPopup.classList.remove('popup_opened');
-    document.removeEventListener('keyup', this._handleEscKey);
+    document.removeEventListener('keydown', this._handleEscKey.bind(this));
   };
 /* Закрытие модального окна кнопкой 'Escape' */
-  _handleEscKey() {
-    if (evt.key = 'Escape') {
-      this.closePopup;
+  _handleEscKey(evt) {
+    if (evt.key === 'Escape') {
+      this.closePopup();
     };
   };
 /* Постановка слушателей для закрытия модального окна по клику на "Overlay" и крестик */
   setEventListeners() {
     this._selectorPopup.addEventListener('click', (evt) => {
       if (evt.target.classList.contains('popup_opened')) {
-        this.closePopup;
+        this.closePopup();
       };
       if (evt.target.classList.contains('popup__close-icon')) {
-        this.closePopup;
+        this.closePopup();
       };
     });
   };
