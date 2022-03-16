@@ -5,6 +5,7 @@ export default class PopupWithForm extends Popup {
     super(selectorPopup);
     this._selectorForm = this._selectorPopup.querySelector(selectorForm)
     this._handleFormSubmit = handleFormSubmit;
+    this._formButtonSelector = this._selectorForm.querySelector('.popup__button')
   };
 /* Получение значений из полей ввода */
   _getInputValues() {
@@ -24,10 +25,15 @@ export default class PopupWithForm extends Popup {
     super.closePopup(); 
     this.resetForm();
   };
+/* Отображение загрузки на кнопке */
+  renderLoading(buttonText = 'Сохранить' ) {
+    this._formButtonSelector.textContent = buttonText;
+  }
 /* Установка слушателей */
   setEventListeners() {
     super.setEventListeners();
     this._selectorForm.addEventListener('submit', (evt) => {
+      this.renderLoading('Сохранение...');
       evt.preventDefault();
       this._handleFormSubmit(this._getInputValues());
       this.closePopup();

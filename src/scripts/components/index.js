@@ -10,10 +10,8 @@ import {
   inputName, 
   inputAbout,
   addCardButton,
-  inputPlace,
-  inputLink,
   changeProfileAvatarButton,
-  inputUserAvatarLink
+  submitButtons
 } from '../utils/constans.js';
 import { validationConfig } from '../utils/validationConfig.js';
 import '../../pages/index.css';
@@ -41,18 +39,22 @@ const getInfo = Promise.all([api.getUserData(), api.getCards()])
 
 /* ФОРМА ПРОФИЛЯ */  
 
+/* Открытие модального окана и подключение слушателей */
+
 /* Хендлер отправки формы */
 const handleFormEditSubmit = (newInputValues) => {
   api.changeUserData(newInputValues['input-name'], newInputValues['input-about'])
     .then((userData) => {
     userInfo.setUserInfo(userData)
-  })
+    })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      popupEdit.renderLoading();
     });
 };
 
-/* Открытие модального окана и подключение слушателей */
 const popupEdit = new PopupWithForm(
   '.popup_type_edit', 
   '.popup__input-container_type_edit',
@@ -67,6 +69,7 @@ editprofileButton.addEventListener('click', () => {
   inputAbout.value = userData.about;
   popupEdit.openPopup();
 });
+
 
 /* Включения валидации */
 const formEditValidator = new FormValidator (
@@ -86,6 +89,9 @@ const handleFormAddSubmit = (newInputValues) => {
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      popupAdd.renderLoading();
     });
 };
 
@@ -115,11 +121,13 @@ formAddValidator.enableValidation();
 const handleFormUserAvatarSubmit = (newInputValue) => {
   api.changeUserAvatar(newInputValue['input-avatar'])
     .then((userData) => {
-      console.log(userData.avatar)
-      userInfo.setUserInfo(userData.avatar)
+      userInfo.setUserInfo(userData)
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      popupUserAvatar.renderLoading();
     });
 };
 
@@ -158,7 +166,8 @@ const handleLikeCard = (card) => {
   if (!card.isLiked()) {
     api.putCardLike(card.id())
       .then(cardData => {
-        card.updateLikesView(cardData);
+        card.likes = cardData.likes
+        card.updateLikesView();
       })
       .catch((err) => {
         console.log(err);
@@ -166,7 +175,8 @@ const handleLikeCard = (card) => {
   } else {
     api.deleteCardLike(card.id())
       .then(cardData => {
-        card.updateLikesView(cardData);
+        card.likes = cardData.likes
+        card.updateLikesView();
       })
       .catch((err) => {
         console.log(err);

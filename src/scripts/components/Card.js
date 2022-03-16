@@ -26,8 +26,8 @@ export default class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._deleteButton = this._element.querySelector('.cards__delete');
-    this._likeButton = this._element.querySelector('.cards__like-button');
     this.updateDeleteButtonView();
+    this._likeButton = this._element.querySelector('.cards__like-button');
     this.updateLikesView();
     this._setEventListeners();
     return this._element;
@@ -59,13 +59,12 @@ export default class Card {
   isCardOfUser() {
     return Boolean (this._element.find(cardData => cardData.owner_id === this._userId))
   };
-
 /* Изменение состояния кнопки удаления карточки */
   updateDeleteButtonView() {
-    if (this.isCardOfUser) {
-      this._deleteButton.classList.remove('cards__delete_inactive');
-    } else {
+    if (!this.isCardOfUser) {
       this._deleteButton.classList.add('cards__delete_inactive');
+    } else {
+      this._deleteButton.classList.remove('cards__delete_inactive');
     };
   };
 

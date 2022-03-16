@@ -67,14 +67,6 @@ _checkinputValidity(inputElement) {
       });
     });
   };
-/* Отображение загрузки на кнопке */
-  renderLoading(isLoading) {
-    if (isLoading) {
-      this._submitButtonSelector.textContent = "Сохранить..."
-    } else {
-      this._submitButtonSelector.textContent = "Сохранить"
-    };
-  };
 /* Запуск валидации */
   enableValidation() {
     this._setEventListeners();
