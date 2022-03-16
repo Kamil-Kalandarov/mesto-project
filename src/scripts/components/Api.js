@@ -28,17 +28,17 @@ export default class Api {
   addNewCard(cardName, cardLink) {
     return fetch (this._baseUrl + '/cards', {
       method: 'POST',
-      header: this._headers,
+      headers: this._headers,
       body: JSON.stringify({
-        cardName: cardName,
-        cardLink: cardLink
+        name: cardName,
+        link: cardLink
       }),
     })
     .then(this._checkResponse);
   };
 
   deleteCard(cardId) {
-    return fetch (this._baseUrl + `cards/${cardId}`, {
+    return fetch (this._baseUrl + `/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._headers
     })
@@ -48,20 +48,21 @@ export default class Api {
   changeUserData(userName, userAbout) {
     return fetch (this._baseUrl + '/users/me', {
       method: 'PATCH',
+      headers: this._headers,
       body: JSON.stringify({
-        userName: userName,
-        userAbout: userAbout
+        name: userName,
+        about: userAbout
       }),
     })
     .then(this._checkResponse);
   };
 
   changeUserAvatar(userAvatar) {
-    return fetch (this._baseUrl + 'users/me/avatar', {
+    return fetch (this._baseUrl + '/users/me/avatar', {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        userAvatar: userAvatar
+        avatar: userAvatar
       }),
     })
     .then(this._checkResponse);

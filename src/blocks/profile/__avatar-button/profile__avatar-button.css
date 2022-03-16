@@ -1,4 +1,4 @@
-.profile__avatar-overlay {
+.profile__avatar-button {
   background: url('../../../images/avatar-change-icon.svg') no-repeat;
   background-position: center;
   position: absolute;
@@ -13,6 +13,6 @@
   margin: 0;
   padding: 0;
 }
-.profile__avatar-overlay:hover {
+.profile__avatar-button:hover {
   opacity: 80%;
 }

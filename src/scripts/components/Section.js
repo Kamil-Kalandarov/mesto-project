@@ -4,8 +4,12 @@ export default class Section {
     this._container = document.querySelector(containerSelector);
   };
 
-  addItem(element) {
+  addInitialCards(element) {
     this._container.append(element);
+  }
+
+  addItem(element) {
+    this._container.prepend(element);
   };
 
   renderItems (items) {

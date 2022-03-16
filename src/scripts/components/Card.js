@@ -1,5 +1,5 @@
 export default class Card {
-  constructor ({cardData, handleLikeCard}, userId, templateSelector) {
+  constructor ({cardData, handleLikeCard, handleCardClick, handleDeleteCard}, userId, templateSelector) {
     this._name = cardData.name;
     this._link = cardData.link;
     this._likes = cardData.likes;
@@ -8,8 +8,8 @@ export default class Card {
     this._handleLikeCard = handleLikeCard;
     this._userId = userId
     this._templateSelector = templateSelector;
-    //this._handleCardClick = handleCardClick;
-    //this._handleDeleteCard = handleDeleteCard;
+    this._handleCardClick = handleCardClick;
+    this._handleDeleteCard = handleDeleteCard;
   };
 /* Клонирование разметки карточки */
   _getElement() {
@@ -27,8 +27,9 @@ export default class Card {
     this._cardImage.alt = this._name;
     this._deleteButton = this._element.querySelector('.cards__delete');
     this._likeButton = this._element.querySelector('.cards__like-button');
-    this.updateLikesView()
-    this._setEventListeners()
+    this.updateDeleteButtonView();
+    this.updateLikesView();
+    this._setEventListeners();
     return this._element;
   };
 /* Получение ID карточки */
@@ -53,6 +54,21 @@ export default class Card {
   _updateLikes() {
     this._element.querySelector('.cards__like-counter').textContent = this._likes.length;
   };
+
+/* Проверка принадлежности карточки к пользователю */
+  isCardOfUser() {
+    return Boolean (this._element.find(cardData => cardData.owner_id === this._userId))
+  };
+
+/* Изменение состояния кнопки удаления карточки */
+  updateDeleteButtonView() {
+    if (this.isCardOfUser) {
+      this._deleteButton.classList.remove('cards__delete_inactive');
+    } else {
+      this._deleteButton.classList.add('cards__delete_inactive');
+    };
+  };
+
 /* Удаление карточки из разметки и из оперативной памяти */
   remove() {
     this._element.remove();
@@ -60,12 +76,12 @@ export default class Card {
   };
 /* Установка слушателей */
   _setEventListeners() {
-    /*this._cardImage.addEventListener('click', () => {
+    this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._link, this._name)
     });
     this._deleteButton.addEventListener('click', () => {
       this._handleDeleteCard(this)
-    });*/
+    });
     this._likeButton.addEventListener('click', () => {
       this._handleLikeCard(this)
     });
