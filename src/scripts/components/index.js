@@ -166,7 +166,6 @@ const handleLikeCard = (card) => {
   if (!card.isLiked()) {
     api.putCardLike(card.id())
       .then(cardData => {
-        card.likes = cardData.likes
         card.updateLikesView();
       })
       .catch((err) => {
@@ -175,7 +174,6 @@ const handleLikeCard = (card) => {
   } else {
     api.deleteCardLike(card.id())
       .then(cardData => {
-        card.likes = cardData.likes
         card.updateLikesView();
       })
       .catch((err) => {
