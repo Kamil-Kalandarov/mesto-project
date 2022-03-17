@@ -26,7 +26,7 @@ export default class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._deleteButton = this._element.querySelector('.cards__delete');
-    this.updateDeleteButtonView();
+    this._updateDeleteButtonView();
     this._likeButton = this._element.querySelector('.cards__like-button');
     this.updateLikesView();
     this._setEventListeners();
@@ -49,25 +49,18 @@ export default class Card {
     };
     this._updateLikes();
   };
-
 /* Актуализация количества лайков */
   _updateLikes() {
     this._element.querySelector('.cards__like-counter').textContent = this._likes.length;
   };
-
-/* Проверка принадлежности карточки к пользователю */
-  isCardOfUser() {
-    return Boolean (this._element.find(cardData => cardData.owner_id === this._userId))
-  };
 /* Изменение состояния кнопки удаления карточки */
-  updateDeleteButtonView() {
-    if (!this.isCardOfUser) {
+  _updateDeleteButtonView() {
+    if (!(this._userId === this._ownerId)) {
       this._deleteButton.classList.add('cards__delete_inactive');
     } else {
       this._deleteButton.classList.remove('cards__delete_inactive');
     };
   };
-
 /* Удаление карточки из разметки и из оперативной памяти */
   remove() {
     this._element.remove();
