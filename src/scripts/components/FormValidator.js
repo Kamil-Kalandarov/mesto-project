@@ -1,10 +1,10 @@
 export default class FormValidator {
   constructor (formSelector, validationConfig) {
-    this._formSelector = document.querySelector(formSelector);
-    this._inputSectionSelector = validationConfig.inputSectionSelector;
+    this._form = document.querySelector(formSelector);
+    this._inputSection = validationConfig.inputSectionSelector;
     this._inputSelector = validationConfig.inputSelector;
-    this._inputList = Array.from(this._formSelector.querySelectorAll(this._inputSelector));
-    this._submitButtonSelector = this._formSelector.querySelector(validationConfig.submitButtonSelector);
+    this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+    this._submitButton = this._form.querySelector(validationConfig.submitButtonSelector);
     this._inactiveButtonClass = validationConfig.inactiveButtonClass;
     this._inputErrorClass = validationConfig.inputErrorClass;
     this._errorMessageClass = validationConfig.erroeMessageClass;
@@ -13,7 +13,7 @@ export default class FormValidator {
 /* Показать ошибку */
   _showInputError(inputElement, errorMessage) {
     const errorMessageElement = inputElement
-      .closest(this._inputSectionSelector)
+      .closest(this._inputSection)
       .querySelector(this._errorMessageClass);
     errorMessageElement.textContent = errorMessage;
     errorMessageElement.classList.add(this._errorMessageActiveClass);
@@ -22,7 +22,7 @@ export default class FormValidator {
 /* Скрыть ошибку */
   _hideInputError(inputElement) {
     const errorMessageElement = inputElement
-      .closest(this._inputSectionSelector)
+      .closest(this._inputSection)
       .querySelector(this._errorMessageClass);
     errorMessageElement.textContent = '';
     errorMessageElement.classList.remove(this._errorMessageActiveClass);
@@ -44,20 +44,27 @@ _checkinputValidity(inputElement) {
     return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
-  }
+  };
+/* Удаление ошибок из инпутов */
+  resetValidation() {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+  };
 /* Переключение активности кнопки после проверки валидности полей */
   _toggleButtonState() {
     if (this._hasAtLeastOneInvalidInput()) {
-      this._submitButtonSelector.classList.add(this._inactiveButtonClass);
-      this._submitButtonSelector.setAttribute('disabled', true);
+      this._submitButton.classList.add(this._inactiveButtonClass);
+      this._submitButton.setAttribute('disabled', true);
     } else {
-      this._submitButtonSelector.classList.remove(this._inactiveButtonClass);
-      this._submitButtonSelector.removeAttribute('disabled');
+      this._submitButton.classList.remove(this._inactiveButtonClass);
+      this._submitButton.removeAttribute('disabled');
     };
   };
 /* Слушатели событий */
   _setEventListeners() {
-    this._formSelector.addEventListener('submit', (event) => {
+    this._form.addEventListener('submit', (event) => {
       event.preventDefault();
     });
     this._inputList.forEach((inputElement) => {

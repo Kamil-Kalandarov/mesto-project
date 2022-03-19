@@ -28,7 +28,8 @@ export default class Card {
     this._deleteButton = this._element.querySelector('.cards__delete');
     this._updateDeleteButtonView();
     this._likeButton = this._element.querySelector('.cards__like-button');
-    this.updateLikesView();
+    this._likeCounter = this._element.querySelector('.cards__like-counter');
+    this._updateLikesView();
     this._setEventListeners();
     return this._element;
   };
@@ -41,21 +42,22 @@ export default class Card {
     return Boolean (this._likes.find(userData => userData._id === this._userId))
   };
 /* Изменение состояния лайка, в зависимости от наличия лайка пользователя */
-  updateLikesView() {
+  _updateLikesView() {
     if (this.isLiked()) {
+      this._likeCounter.textContent = this._likes.length;
       this._likeButton.classList.add('cards__like-button_active');
     } else {
       this._likeButton.classList.remove('cards__like-button_active');
     };
-    this._updateLikes();
   };
 /* Актуализация количества лайков */
-  _updateLikes() {
-    this._element.querySelector('.cards__like-counter').textContent = this._likes.length;
+  updateLikes(cardData) {
+    this._likes = cardData.likes;
+    this._updateLikesView();
   };
 /* Изменение состояния кнопки удаления карточки */
   _updateDeleteButtonView() {
-    if (!(this._userId === this._ownerId)) {
+    if (this._userId !== this._ownerId) {
       this._deleteButton.classList.add('cards__delete_inactive');
     } else {
       this._deleteButton.classList.remove('cards__delete_inactive');
