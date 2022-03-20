@@ -47,6 +47,7 @@ export default class Card {
       this._likeCounter.textContent = this._likes.length;
       this._likeButton.classList.add('cards__like-button_active');
     } else {
+      this._likeCounter.textContent = this._likes.length;
       this._likeButton.classList.remove('cards__like-button_active');
     };
   };
