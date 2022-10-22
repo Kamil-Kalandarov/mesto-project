@@ -1,7 +1,3 @@
-<div align='center'>
-  <img src='./src/images/logo.svg'>
-</div>
-
 **<h1 align='center'>Mesto</h1>**
 ## Социальная сеть для путешественников
 
