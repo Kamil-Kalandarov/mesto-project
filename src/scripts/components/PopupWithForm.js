@@ -28,7 +28,7 @@ export default class PopupWithForm extends Popup {
 /* Отображение загрузки на кнопке */
   renderLoading(buttonText = 'Сохранить' ) {
     this._formButton.textContent = buttonText;
-  }
+  };
 /* Установка слушателей */
   setEventListeners() {
     super.setEventListeners();
