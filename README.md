@@ -5,6 +5,7 @@
 - [Функциональность](#functionality);
 - [Стек технологий](#techologies);
 - [Установка](#getting-started); 
+- [Demo](#demo-link);
 - [Мои контакты](#contacts);
 
 ## <a name='functionality'>**Функциональность:**</a>
@@ -33,7 +34,7 @@
   ```
 - после чего у вам запустится локальный сервер с проектом
 
-## **ссылка на Demo проекта [Mesto](https://kamil-kalandarov.github.io/mesto-project/)**
+## <a name="demo-link">**ссылка на Demo проекта** [Mesto](https://kamil-kalandarov.github.io/mesto-project/)</a>
 
 ## <a name='contacts'>**Мои контакты:**</a>
 [<img src="https://img.shields.io/badge/Telegram-696969?style=for-the-badge&logo=Telegram&logoColor=#F7DF1E">](https://t.me/Kamil_Kalandarov) 
